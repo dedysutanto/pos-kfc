@@ -1,5 +1,7 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User
+from shops.models import Shops
 from crum import get_current_user
 from djmoney.models.fields import MoneyField
 from django.utils.translation import gettext as _
@@ -49,6 +51,12 @@ class Items(models.Model):
     cost = MoneyField(max_digits=19, decimal_places=2, default=0, default_currency='IDR')
     is_available = models.BooleanField(_('Available to sell'), default=True)
 
+    shops = models.ManyToManyField(
+        Shops,
+        limit_choices_to=limit_choices_to_current_user,
+        verbose_name=_('Available at Shops')
+    )
+
     sku = models.CharField(_('SKU'), max_length=50, blank=True)
     barcode = models.CharField(_('Barcode'), max_length=50, blank=True)
 
@@ -65,6 +73,7 @@ class Items(models.Model):
         FieldPanel('category'),
         MultiFieldPanel([FieldPanel('price'), FieldPanel('cost')], heading=_('Price and Cost')),
         FieldPanel('is_available'),
+        FieldPanel('shops', widget=forms.CheckboxSelectMultiple(attrs={"checked":""})),
         MultiFieldPanel([FieldPanel('sku'), FieldPanel('barcode')], heading=_('SKU and Barcode')),
         ImageChooserPanel('image'),
     ]

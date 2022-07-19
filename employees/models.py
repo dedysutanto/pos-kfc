@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User
 from shops.models import Shops
 from crum import get_current_user
@@ -38,7 +39,7 @@ class Employees(models.Model):
         MultiFieldPanel([FieldPanel('name'), FieldPanel('email'), FieldPanel('telephone')],
                         heading=_('Name, Email and Telephone')),
         FieldPanel('pin'),
-        FieldPanel('shops'),
+        FieldPanel('shops', widget=forms.CheckboxSelectMultiple(attrs={"checked":""})),
     ]
 
     class Meta:
