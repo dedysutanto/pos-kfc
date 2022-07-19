@@ -1,0 +1,3 @@
+# POS KFC
+
+Simple POS
