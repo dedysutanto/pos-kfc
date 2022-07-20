@@ -4,6 +4,7 @@ from .models import Items, Categories
 from crum import get_current_user
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
+from django.utils.translation import gettext as _
 
 
 class ItemsForm(WagtailAdminModelForm):
@@ -26,6 +27,7 @@ class CategoriesAdmin(ModelAdmin):
     list_display = ('name', 'total_items')
     #list_filter = ('name',)
     search_fields = ('name',)
+    empty_value_display = _('No Category')
 
     @staticmethod
     def total_items(obj):

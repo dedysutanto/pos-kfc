@@ -43,7 +43,9 @@ class Items(models.Model):
     description = models.TextField(_('Description'), blank=True)
     category = models.ForeignKey(
         Categories,
-        on_delete=models.RESTRICT,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
         verbose_name=_('Category'),
         limit_choices_to=limit_choices_to_current_user,
     )
