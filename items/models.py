@@ -10,7 +10,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class Categories(models.Model):
-    name = models.CharField(_('Category Name'), max_length=20, unique=True)
+    name = models.CharField(_('Category Name'), max_length=20)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -39,7 +39,7 @@ class Items(models.Model):
         user = get_current_user()
         return {'user': user}
 
-    name = models.CharField(_('Item Name'), max_length=20, unique=True)
+    name = models.CharField(_('Item Name'), max_length=20)
     description = models.TextField(_('Description'), blank=True)
     category = models.ForeignKey(
         Categories,

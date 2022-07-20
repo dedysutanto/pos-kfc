@@ -47,7 +47,7 @@ class SalesAdmin(ModelAdmin):
 class SalesGroup(ModelAdminGroup):
     menu_label = 'Sales'
     menu_icon = 'folder-open-inverse'  # change as required
-    menu_order = 400  # will put in 3rd place (000 being 1st, 100 2nd)
+    menu_order = 500  # will put in 3rd place (000 being 1st, 100 2nd)
     items = (ReceiptsAdmin, SalesAdmin)
 
 # Now you just need to register your customised ModelAdmin class with Wagtail

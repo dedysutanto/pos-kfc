@@ -3,6 +3,7 @@ from wagtail.contrib.modeladmin.options import (
 from .models import Items, Categories
 from crum import get_current_user
 from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.contrib.modeladmin.mixins import ThumbnailMixin
 
 
 class ItemsForm(WagtailAdminModelForm):
@@ -38,14 +39,16 @@ class CategoriesAdmin(ModelAdmin):
         #return Categories.objects.filter(user=get_current_user())
 
 
-class ItemsAdmin(ModelAdmin):
+class ItemsAdmin(ThumbnailMixin, ModelAdmin):
     model = Items
     menu_label = 'Items'  # ditch this to use verbose_name_plural from model
     menu_icon = 'tag'  # change as required
     #menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
-    list_display = ('name', 'category', 'price', 'cost', 'margin')
+    list_display = ('admin_thumb', 'name', 'category', 'price', 'cost', 'margin')
+    list_display_add_buttons = 'name'
+    thumb_image_field_name = 'image'
     #list_filter = ('category',)
     search_fields = ('name',)
 
